@@ -1,0 +1,13 @@
+<snippet>
+    <content><![CDATA[
+set name=pkg.fmri value=${1},5.11
+set name=pkg.summary value="${2}"
+set name=pkg.description value="${3}"
+set name=variant.arch value=\$(ARCH)
+dir group=sys mode=0755 owner=root path=opt/path
+file opt/path/file group=sys mode=0644 owner=root path=opt/path/file preserve=true
+
+]]></content>
+    <tabTrigger>newpackage</tabTrigger>
+    <scope>text.ipspkg</scope>
+</snippet>

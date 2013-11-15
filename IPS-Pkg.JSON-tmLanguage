@@ -1,0 +1,46 @@
+{ "name": "IPS-Pkg",
+  "scopeName": "text.ipspkg",
+  "fileTypes": ["ips", "p5m", "p5m.final", ".mog"],
+  "patterns": [
+    { "include": "#inline" },
+    {
+      "name": "keyword.text.ipspkg",
+      "match": "^(set|legacy)\\b",
+      "comment": "package-level metadata"
+    },
+    {
+      "name": "keyword.text.ipspkg",
+      "begin": "^((file|license))",
+      "end": "\\s",
+      "comment": "keywords that have paths after them"
+    },
+    {
+      "name": "keyword.text.ipspkg",
+      "match": "^(dir|link|hardlink|driver|depend|license|legacy|signature|user|group)\\s*",
+      "comment": "keywords that describe actions"
+    },
+    {
+      "name": "attribute.action.text.ipspkg",
+      "match": "\\s*(name|value|group|mode|owner|arch|category|path|desc|hotline|pkg|vendor|version|REV|license|preserve)(=)([A-Za-z0-9_\\.\\/]*)\\s*",
+      "comment": "attributes that modify actions",
+      "captures": {
+        "1": { "name": "entity.other.attribute-name.text.ipspkg" },
+        "2": { "name": "punctuation.text.ipspkg" },
+        "3": { "name": "constant.character.text.ipspkg" }
+      }
+    }
+  ],
+  "repository": {
+    "inline": {
+      "patterns": [
+        {
+          "name": "string.text.ipspkg",
+          "begin": "\"",
+          "end": "\"",
+          "comment": "quoted strings"
+        }
+      ]
+    }
+  },
+  "uuid": "9f281c08-ae81-4ccd-b910-a67b17d1952d"
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>ips</string>
+		<string>p5m</string>
+		<string>p5m.final</string>
+		<string>.mog</string>
+	</array>
+	<key>name</key>
+	<string>IPS-Pkg</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>#inline</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>package-level metadata</string>
+			<key>match</key>
+			<string>^(set|legacy)\b</string>
+			<key>name</key>
+			<string>keyword.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^((file|license))</string>
+			<key>comment</key>
+			<string>keywords that have paths after them</string>
+			<key>end</key>
+			<string>\s</string>
+			<key>name</key>
+			<string>keyword.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>keywords that describe actions</string>
+			<key>match</key>
+			<string>^(dir|link|hardlink|driver|depend|license|legacy|signature|user|group)\s*</string>
+			<key>name</key>
+			<string>keyword.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>entity.other.attribute-name.text.ipspkg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.text.ipspkg</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>constant.character.text.ipspkg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>attributes that modify actions</string>
+			<key>match</key>
+			<string>\s*(name|value|group|mode|owner|arch|category|path|desc|hotline|pkg|vendor|version|REV|license|preserve)(=)([A-Za-z0-9_\.\/]*)\s*</string>
+			<key>name</key>
+			<string>attribute.action.text.ipspkg</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>inline</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>"</string>
+					<key>comment</key>
+					<string>quoted strings</string>
+					<key>end</key>
+					<string>"</string>
+					<key>name</key>
+					<string>string.text.ipspkg</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>text.ipspkg</string>
+	<key>uuid</key>
+	<string>9f281c08-ae81-4ccd-b910-a67b17d1952d</string>
+</dict>
+</plist>
