@@ -1,0 +1,80 @@
+{ "name": "IPS-Pkg-mog",
+  "scopeName": "text.ipspkgmog",
+  "fileTypes": ["mog"],
+  "patterns": [
+    {
+      "name": "transform.markup.text.ipspkgmog",
+      "begin": "^<",
+      "end":   ">$",
+      "comment": "package-level metadata",
+      "patterns": [
+        {  
+          "name": "transform.markup.text.ipspkgmog",
+          "match": "(transform|include)\\s+(link|hardlink|pkg)?",
+          "captures": {
+            "1": {"name": "keyword.text.ipspkgmog"},
+            "2": {"name": "support.constant.text.ipspkgmog"}
+          }
+        },
+        {
+          "name": "transform.path.markup.text.ipspkgmog",
+          "begin": "\\b(dir|file)\\s+(path)(=)",
+          "beginCaptures": {
+            "1": { "name": "support.constant.text.ipspkgmog" },
+            "2": { "name": "entity.text.ipspkgmog" },
+            "3": { "name": "punctuation.text.ipspkgmog" }
+          },
+          "end":   "->",
+          "comment": "dir and file paths which can use regex",
+          "patterns": [
+            { "include": "source.regexp" }
+          ]
+        },
+        {  
+          "name": "modify.command.text.ipspkgmog",
+          "begin": "\\b(add|edit|default|delete|drop|emit|exit|print|set)\\s*",
+          "beginCaptures": {
+              "1": { "name": "storage.text.ipspkgmog" }
+          },
+          "end": ">$",
+          "patterns": [
+            {
+              "name": "storage.type.text.ipspkgmog",
+              "match": "(owner|group|mode|disable_fmri|enable_fmri|restart_fmri|depend)\\s+"
+            },
+            {
+              "name": "constant.numeric.text.ipspkgmog",
+              "match": "\\d+\\b"
+            },
+            {
+              "name": "constant.numeric.text.ipspkgmog",
+              "match": "\\b(svc:)[\\w:/-]+"
+            },
+            { "include": "text.ipspkg" },
+            { "include": "source.regexp" }
+          ]
+        },
+        {
+          "name": "attribute.action.text.ipspkgmog",
+          "match": "\\b([a-z\\.]+)(?==)",
+          "comment": "attributes that modify actions",
+          "captures": {
+            "1": { "name": "entity.other.attribute-name.text.ipspkgmog" },
+            "2": { "name": "punctuation.text.ipspkgmog" }
+          }
+        },
+        {
+          "name": "attribute.value.text.ipspkgmog",
+          "match": "(=)([A-Za-z0-9_\\.\\/,-\\?\\*]+)\\b",
+          "comment": "the values of attributes that modify actions",
+          "captures": {
+            "1": { "name": "punctuation.text.ipspkgmog" },
+            "2": { "name": "constant.character.text.ipspkgmog" }
+          }
+        }
+      ]
+    },
+    {"include": "text.ipspkg"}
+  ],
+  "uuid": "0db0f988-7455-467a-b86b-89236e410d43"
+}

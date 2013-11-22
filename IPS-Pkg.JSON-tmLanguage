@@ -1,8 +1,7 @@
 { "name": "IPS-Pkg",
   "scopeName": "text.ipspkg",
-  "fileTypes": ["ips", "p5m", "p5m.final", ".mog"],
+  "fileTypes": ["ips", "p5m", "p5m.final"],
   "patterns": [
-    { "include": "#inline" },
     {
       "name": "keyword.text.ipspkg",
       "match": "^(set|legacy)\\b",
@@ -10,8 +9,12 @@
     },
     {
       "name": "keyword.text.ipspkg",
-      "begin": "^((file|license))",
-      "end": "\\s",
+      "match": "^(file|license)(\\ )([A-Za-z0-9_\\.\\/,]+)\\s+",
+      "captures": {
+        "1": { "name": "keyword.text.ipspkg" },
+        "2": { "name": "punctuation.text.ipspkg" },
+        "3": { "name": "support.constant.text.ipspkg" }
+      },
       "comment": "keywords that have paths after them"
     },
     {
@@ -21,26 +24,39 @@
     },
     {
       "name": "attribute.action.text.ipspkg",
-      "match": "\\s*(name|value|group|mode|owner|arch|category|path|desc|hotline|pkg|vendor|version|REV|license|preserve)(=)([A-Za-z0-9_\\.\\/]*)\\s*",
+      "match": "\\b([a-z\\.]+)(?==)",
       "comment": "attributes that modify actions",
       "captures": {
         "1": { "name": "entity.other.attribute-name.text.ipspkg" },
-        "2": { "name": "punctuation.text.ipspkg" },
-        "3": { "name": "constant.character.text.ipspkg" }
+        "2": { "name": "punctuation.text.ipspkg" }
+      }
+    },
+    {
+      "name": "attribute.value.text.ipspkg",
+      "match": "(=)([A-Za-z0-9_\\.\\/,-:]+)\\b",
+      "comment": "the values of attributes that modify actions",
+      "captures": {
+        "1": { "name": "punctuation.text.ipspkg" },
+        "2": { "name": "constant.character.text.ipspkg" }
+      }
+    },
+    {
+      "name": "string.text.ipspkg",
+      "begin": "\"",
+      "end": "\"",
+      "comment": "quoted strings"
+    },
+    {
+      "name": "package.version.ipspkg",
+      "match": "(@)(\\d+(\\.\\d+)*)(,)(\\d+(\\.\\d+))",
+      "comment": "pkg version",
+      "captures": {
+        "1": { "name": "punctuation.text.ipspkg" },
+        "2": { "name": "storage.ipspkg" },
+        "3": { "name": "punctuation.text.ipspkg" },
+        "5": { "name": "storage.type.ipspkg" }
       }
     }
   ],
-  "repository": {
-    "inline": {
-      "patterns": [
-        {
-          "name": "string.text.ipspkg",
-          "begin": "\"",
-          "end": "\"",
-          "comment": "quoted strings"
-        }
-      ]
-    }
-  },
   "uuid": "9f281c08-ae81-4ccd-b910-a67b17d1952d"
 }

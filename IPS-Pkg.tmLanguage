@@ -7,16 +7,11 @@
 		<string>ips</string>
 		<string>p5m</string>
 		<string>p5m.final</string>
-		<string>.mog</string>
 	</array>
 	<key>name</key>
 	<string>IPS-Pkg</string>
 	<key>patterns</key>
 	<array>
-		<dict>
-			<key>include</key>
-			<string>#inline</string>
-		</dict>
 		<dict>
 			<key>comment</key>
 			<string>package-level metadata</string>
@@ -26,12 +21,28 @@
 			<string>keyword.text.ipspkg</string>
 		</dict>
 		<dict>
-			<key>begin</key>
-			<string>^((file|license))</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.text.ipspkg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.text.ipspkg</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>support.constant.text.ipspkg</string>
+				</dict>
+			</dict>
 			<key>comment</key>
 			<string>keywords that have paths after them</string>
-			<key>end</key>
-			<string>\s</string>
+			<key>match</key>
+			<string>^(file|license)(\ )([A-Za-z0-9_\.\/,]+)\s+</string>
 			<key>name</key>
 			<string>keyword.text.ipspkg</string>
 		</dict>
@@ -56,39 +67,77 @@
 					<key>name</key>
 					<string>punctuation.text.ipspkg</string>
 				</dict>
-				<key>3</key>
+			</dict>
+			<key>comment</key>
+			<string>attributes that modify actions</string>
+			<key>match</key>
+			<string>\b([a-z\.]+)(?==)</string>
+			<key>name</key>
+			<string>attribute.action.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.text.ipspkg</string>
+				</dict>
+				<key>2</key>
 				<dict>
 					<key>name</key>
 					<string>constant.character.text.ipspkg</string>
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>attributes that modify actions</string>
+			<string>the values of attributes that modify actions</string>
 			<key>match</key>
-			<string>\s*(name|value|group|mode|owner|arch|category|path|desc|hotline|pkg|vendor|version|REV|license|preserve)(=)([A-Za-z0-9_\.\/]*)\s*</string>
+			<string>(=)([A-Za-z0-9_\.\/,-:]+)\b</string>
 			<key>name</key>
-			<string>attribute.action.text.ipspkg</string>
+			<string>attribute.value.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>"</string>
+			<key>comment</key>
+			<string>quoted strings</string>
+			<key>end</key>
+			<string>"</string>
+			<key>name</key>
+			<string>string.text.ipspkg</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.text.ipspkg</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.ipspkg</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.text.ipspkg</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.ipspkg</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>pkg version</string>
+			<key>match</key>
+			<string>(@)(\d+(\.\d+)*)(,)(\d+(\.\d+))</string>
+			<key>name</key>
+			<string>package.version.ipspkg</string>
 		</dict>
 	</array>
-	<key>repository</key>
-	<dict>
-		<key>inline</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>"</string>
-					<key>comment</key>
-					<string>quoted strings</string>
-					<key>end</key>
-					<string>"</string>
-					<key>name</key>
-					<string>string.text.ipspkg</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
 	<key>scopeName</key>
 	<string>text.ipspkg</string>
 	<key>uuid</key>
